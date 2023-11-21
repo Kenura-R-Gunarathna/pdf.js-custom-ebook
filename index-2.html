@@ -7,24 +7,14 @@
 </head>
 
 <body>
-
-    <div>
-        <div class="documentPreviewBt" document="file_1.pdf" name="Mechanical Enginner's Handbook"
-            data-bs-toggle="modal" data-bs-target="#documentModal">Doc
-            1: Mechanical Enginner's Handbook</div>
-        <div class="documentPreviewBt" document="file_2.pdf" name="More Circuits" data-bs-toggle="modal"
-            data-bs-target="#documentModal">Doc
-            2: More Circuits</div>
-    </div>
-
     <!-- Full screen modal -->
-
-    <div class="modal fade" id="documentModal" tabindex="-1" aria-labelledby="documentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="documentModal" tabindex="-1" aria-labelledby="documentModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title d-sm-none d-md-block" id="documentModalLabel">Course Book</h5>
-                    <div class="d-flex text-sm text-muted" style="margin-left: 20px;">
+                    <h5 class="modal-title d-sm-block d-none" id="documentModalLabel" style="margin-right: 20px;">Course
+                        Book</h5>
+                    <div class="d-flex text-sm text-muted">
                         <button type="button" id="prev" class="btn btn-primary btn-sm">Prev</button>
                         <small style="display: flex; justify-content: center; align-items: center; padding: 0px 20px;">
                             <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
@@ -58,30 +48,20 @@
         integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
     <script>
-        $(function () {
-
-            $('#documentPreview').hide();
-
-            $('.documentPreviewBt').click(function () {
-
-                $('#documentPreview').show();
-
-                let document = $(this).attr('document');
-
-                let name = $(this).attr('name');
-
-                $('#documentModalLabel').text(name);
-
-                PDFStart(document);
-            });
-
-            // Avoid printing.
-            $(document).keyup(function (e) {
-                if (e.keyCode == 44 || e.keyCode == 45) return false;
-            });
-
+        $(window).on('load', function () {
+            $('#documentModal').modal('show');
         });
 
+        const startPdf = () => {
+            PDFStart('file_1.pdf')
+        }
+
+        window.addEventListener('load', startPdf);
+
+        // Avoid printing.
+        $(document).keyup(function (e) {
+            if (e.keyCode == 44 || e.keyCode == 45) return false;
+        });
     </script>
 
     <style>
@@ -92,8 +72,8 @@
         }
 
         #cnv {
+            width: -webkit-fill-available;
             max-width: 100%;
-            max-width: -webkit-fill-available;
             border: 1px solid #ebebeb;
             direction: ltr;
         }

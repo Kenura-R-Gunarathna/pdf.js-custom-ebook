@@ -1,4 +1,5 @@
 const PDFStart = nameRoute => {
+
     let loadingTask = pdfjsLib.getDocument(nameRoute),
         pdfDoc = null,
         canvas = document.querySelector('#cnv'),
