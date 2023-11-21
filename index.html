@@ -1,0 +1,81 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pdf.js fipable book</title>
+</head>
+
+<body>
+
+    <div>
+        <div class="documentPreviewBt" document="file_1.pdf">Doc 1: Mechanical Enginner's Handbook</div>
+        <div class="documentPreviewBt" document="file_2.pdf">Doc 2: More Circuits</div>
+    </div>
+
+    <div id="documentPreview">
+
+        <button id="prev">Prev</button>
+        <button id="next">Next</button>
+
+        <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+
+        <div>
+            <canvas id="cnv"></canvas>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+    <script src="./app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+
+            $('#documentPreview').hide();
+
+            $('.documentPreviewBt').click(function () {
+
+                $('#documentPreview').show();
+
+                let document = this.getAttribute("document");
+
+                PDFStart(document);
+            });
+
+            // Avoid printing.
+            $(document).keyup(function (e) {
+                if (e.keyCode == 44 || e.keyCode == 45) return false;
+            });
+
+        });
+
+    </script>
+
+    <style>
+        #documentPreview {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        #cnv {
+            border: 1px solid black;
+            direction: ltr;
+        }
+
+        @media print {
+
+            #documentPreview,
+            #cnv {
+                display: none;
+            }
+        }
+    </style>
+
+</body>
+
+</html>
